@@ -47,7 +47,6 @@ namespace Server.Core
             }
             else
             {
-                // Create default admin user
                 users.Add(new User
                 {
                     Username = "admin",

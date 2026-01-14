@@ -3,10 +3,13 @@ using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SharedLibrary.Enums;
 using SharedLibrary.Models;
+using SharedLibrary.Protocol;
 
 namespace Client
 {
@@ -25,6 +28,8 @@ namespace Client
         {
             InitializeComponent();
             InitializeForm();
+
+            lblVersion.Text = $"v1.0.0 • {DateTime.Now.Year} • TCP File Transfer Client";
         }
 
         private void InitializeForm()
@@ -82,7 +87,7 @@ namespace Client
             ConnectToServer();
         }
 
-        private void ConnectToServer()
+        private async void ConnectToServer()
         {
             try
             {
@@ -99,16 +104,34 @@ namespace Client
                 lblConnectionStatus.Text = "Connecting...";
                 lblConnectionStatus.ForeColor = Color.Orange;
 
-                Task.Run(() =>
+                await Task.Run(() =>
                 {
                     try
                     {
                         client = new TcpClient();
-                        client.Connect(ip, port);
+
+                        client.ReceiveTimeout = 30000; 
+                        client.SendTimeout = 30000; 
+
+                        // Kết nối với timeout
+                        IAsyncResult result = client.BeginConnect(ip, port, null, null);
+                        bool success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(10));
+
+                        if (!success)
+                        {
+                            throw new TimeoutException("Connection timeout");
+                        }
+
+                        client.EndConnect(result);
+
                         stream = client.GetStream();
                         formatter = new BinaryFormatter();
 
                         UpdateConnectionStatus(true);
+                    }
+                    catch (TimeoutException)
+                    {
+                        UpdateConnectionStatus(false, "Connection timeout (10 seconds)");
                     }
                     catch (Exception ex)
                     {
@@ -132,17 +155,19 @@ namespace Client
         {
             try
             {
-                if (isConnected)
+                if (isConnected && stream != null)
                 {
-                    formatter.Serialize(stream, CommandType.Disconnect);
-                    client.Close();
-                    stream = null;
-                    formatter = null;
+                    FileTransferProtocol.SendString(stream, CommandType.Disconnect.ToString());
                 }
             }
             catch { }
             finally
             {
+                try
+                {
+                    client?.Close();
+                }
+                catch { }
                 UpdateConnectionStatus(false, "Disconnected");
             }
         }
@@ -178,20 +203,18 @@ namespace Client
             {
                 try
                 {
-                    formatter.Serialize(stream, CommandType.Login);
-                    formatter.Serialize(stream, new User
-                    {
-                        Username = username,
-                        Password = password
-                    });
+                    FileTransferProtocol.SendString(stream, CommandType.Login.ToString());
 
-                    var response = (ResponseCode)formatter.Deserialize(stream);
+                    FileTransferProtocol.SendString(stream, username);
+                    FileTransferProtocol.SendString(stream, password);
+
+                    string response = FileTransferProtocol.ReceiveString(stream);
 
                     if (this.InvokeRequired)
                     {
                         this.Invoke(new Action(() =>
                         {
-                            if (response == ResponseCode.LoginSuccess)
+                            if (response == ResponseCode.LoginSuccess.ToString())
                             {
                                 lblLoginStatus.Text = "Login successful!";
                                 lblLoginStatus.ForeColor = Color.Green;
@@ -200,7 +223,6 @@ namespace Client
                                 tabFileTransfer.Enabled = true;
                                 tabControl.SelectedTab = tabFileTransfer;
 
-                                // Clear password field
                                 txtPassword.Clear();
                             }
                             else
@@ -271,30 +293,26 @@ namespace Client
             {
                 try
                 {
-                    formatter.Serialize(stream, CommandType.Register);
-                    formatter.Serialize(stream, new User
-                    {
-                        Username = username,
-                        Password = password
-                    });
+                    FileTransferProtocol.SendString(stream, CommandType.Register.ToString());
 
-                    var response = (ResponseCode)formatter.Deserialize(stream);
+                    FileTransferProtocol.SendString(stream, username);
+                    FileTransferProtocol.SendString(stream, password);
+
+                    string response = FileTransferProtocol.ReceiveString(stream);
 
                     if (this.InvokeRequired)
                     {
                         this.Invoke(new Action(() =>
                         {
-                            if (response == ResponseCode.RegisterSuccess)
+                            if (response == ResponseCode.RegisterSuccess.ToString())
                             {
                                 lblRegStatus.Text = "Registration successful!";
                                 lblRegStatus.ForeColor = Color.Green;
 
-                                // Clear fields
                                 txtRegUsername.Clear();
                                 txtRegPassword.Clear();
                                 txtConfirmPassword.Clear();
 
-                                // Auto-fill login fields
                                 txtUsername.Text = username;
                                 txtPassword.Focus();
                             }
@@ -378,98 +396,123 @@ namespace Client
                 return;
             }
 
+            FileInfo fileInfo = new FileInfo(selectedFile);
+            if (fileInfo.Length >  1024 * 1024 * 1024)
+            {
+                MessageBox.Show("File size is too large (max 1GB)", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             btnUpload.Enabled = false;
             btnBrowse.Enabled = false;
             lblUploadStatus.Text = "Preparing upload...";
             lblUploadStatus.ForeColor = Color.Orange;
+            progressUpload.Value = 0;
 
-            await Task.Run(() =>
+            try
             {
-                try
+                NetworkStream uploadStream = client.GetStream();
+
+                await Task.Run(() =>
                 {
-                    FileInfo fileInfo = new FileInfo(selectedFile);
-                    long fileSize = fileInfo.Length;
-                    byte[] buffer = new byte[8192];
-                    int totalPackets = (int)Math.Ceiling((double)fileSize / buffer.Length);
-
-                    formatter.Serialize(stream, CommandType.SendFile);
-
-                    using (FileStream fs = new FileStream(selectedFile, FileMode.Open, FileAccess.Read))
+                    try
                     {
-                        int packetNumber = 1;
-                        int bytesRead;
+                        FileTransferProtocol.SendString(uploadStream, CommandType.SendFile.ToString());
 
-                        while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0)
+                        string fileName = Path.GetFileName(selectedFile);
+                        FileTransferProtocol.SendString(uploadStream, fileName);
+
+                        FileTransferProtocol.SendFile(uploadStream, selectedFile, progress =>
                         {
-                            byte[] fileData = new byte[bytesRead];
-                            Array.Copy(buffer, fileData, bytesRead);
-
-                            var packet = new FilePacket
-                            {
-                                FileName = Path.GetFileName(selectedFile),
-                                FileSize = fileSize,
-                                FileData = fileData,
-                                PacketNumber = packetNumber,
-                                TotalPackets = totalPackets
-                            };
-
-                            formatter.Serialize(stream, packet);
-
-                            // Get progress from server
-                            int progress = (int)formatter.Deserialize(stream);
-
+                            
                             if (this.InvokeRequired)
                             {
                                 this.Invoke(new Action(() =>
                                 {
                                     progressUpload.Value = progress;
                                     lblUploadStatus.Text = $"Uploading... {progress}%";
+
+                                    if (progress < 30)
+                                        lblUploadStatus.ForeColor = Color.Orange;
+                                    else if (progress < 70)
+                                        lblUploadStatus.ForeColor = Color.Blue;
+                                    else
+                                        lblUploadStatus.ForeColor = Color.Green;
                                 }));
                             }
+                        });
 
-                            packetNumber++;
+                        string response = FileTransferProtocol.ReceiveString(uploadStream);
+
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(new Action(() =>
+                            {
+                                if (response == ResponseCode.FileReceived.ToString())
+                                {
+                                    progressUpload.Value = 100;
+                                    lblUploadStatus.Text = "✅ Upload completed successfully!";
+                                    lblUploadStatus.ForeColor = Color.Green;
+                                }
+                                else if (response.StartsWith("ERROR:"))
+                                {
+                                    string errorMsg = response.Substring(6);
+                                    lblUploadStatus.Text = $"❌ {errorMsg}";
+                                    lblUploadStatus.ForeColor = Color.Red;
+                                    btnUpload.Enabled = true;
+                                }
+                                else
+                                {
+                                    lblUploadStatus.Text = $"⚠️ Unknown response: {response}";
+                                    lblUploadStatus.ForeColor = Color.Orange;
+                                    btnUpload.Enabled = true;
+                                }
+
+                                btnBrowse.Enabled = true;
+                                lblSelectedFile.Text = "No file selected";
+                                selectedFile = null;
+
+                                RefreshFileList();
+                            }));
                         }
                     }
-
-                    if (this.InvokeRequired)
+                    catch (IOException ioEx)
                     {
-                        this.Invoke(new Action(() =>
-                        {
-                            lblUploadStatus.Text = "Upload completed successfully!";
-                            lblUploadStatus.ForeColor = Color.Green;
-                            btnBrowse.Enabled = true;
-                            btnUpload.Enabled = false;
-                            lblSelectedFile.Text = "No file selected";
-                            selectedFile = null;
-
-                            // Auto-refresh file list
-                            if (tabControl.SelectedTab == tabFileTransfer)
-                            {
-                                RefreshFileList();
-                            }
-                        }));
+                        throw new Exception($"File I/O error: {ioEx.Message}");
                     }
-                }
-                catch (Exception ex)
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Upload failed: {ex.Message}");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
                 {
-                    if (this.InvokeRequired)
+                    this.Invoke(new Action(() =>
                     {
-                        this.Invoke(new Action(() =>
+                        lblUploadStatus.Text = $"❌ {ex.Message}";
+                        lblUploadStatus.ForeColor = Color.Red;
+                        btnBrowse.Enabled = true;
+                        btnUpload.Enabled = true;
+
+                        if (!client.Connected)
                         {
-                            lblUploadStatus.Text = $"Upload failed: {ex.Message}";
-                            lblUploadStatus.ForeColor = Color.Red;
-                            btnBrowse.Enabled = true;
-                            btnUpload.Enabled = true;
-                        }));
-                    }
+                            UpdateConnectionStatus(false, "Connection lost");
+                        }
+                    }));
                 }
-            });
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             RefreshFileList();
         }
+
+        
 
         private async void RefreshFileList()
         {
@@ -483,46 +526,74 @@ namespace Client
             lstFiles.Items.Clear();
             lstFiles.Items.Add("Loading...");
 
-            await Task.Run(() =>
+            try
             {
-                try
+                NetworkStream listStream = client.GetStream();
+
+                await Task.Run(() =>
                 {
-                    formatter.Serialize(stream, CommandType.ListFiles);
-                    string[] files = (string[])formatter.Deserialize(stream);
-
-                    if (this.InvokeRequired)
+                    try
                     {
-                        this.Invoke(new Action(() =>
-                        {
-                            lstFiles.Items.Clear();
+                        FileTransferProtocol.SendString(listStream, CommandType.ListFiles.ToString());
 
-                            if (files.Length == 0)
+                        string fileListData = FileTransferProtocol.ReceiveString(listStream);
+
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(new Action(() =>
                             {
-                                lstFiles.Items.Add("No files available on server");
-                            }
-                            else
-                            {
-                                foreach (string file in files)
+                                lstFiles.Items.Clear();
+
+                                if (fileListData == "ERROR")
                                 {
-                                    string fileName = Path.GetFileName(file);
-                                    lstFiles.Items.Add(fileName);
+                                    lstFiles.Items.Add("Error getting file list");
+                                    return;
                                 }
-                            }
-                        }));
+
+                                string[] lines = fileListData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                                if (lines.Length == 0)
+                                {
+                                    lstFiles.Items.Add("No files available on server");
+                                }
+                                else
+                                {
+                                    foreach (string line in lines)
+                                    {
+                                        string[] parts = line.Split('|');
+                                        if (parts.Length >= 1)
+                                        {
+                                            string displayText = parts[0];
+                                            if (parts.Length >= 2)
+                                            {
+                                                long fileSize = long.Parse(parts[1]);
+                                                displayText += $" ({FormatFileSize(fileSize)})";
+                                            }
+                                            lstFiles.Items.Add(displayText);
+                                        }
+                                    }
+                                }
+                            }));
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    if (this.InvokeRequired)
+                    catch (Exception ex)
                     {
-                        this.Invoke(new Action(() =>
+                        if (this.InvokeRequired)
                         {
-                            lstFiles.Items.Clear();
-                            lstFiles.Items.Add($"Error: {ex.Message}");
-                        }));
+                            this.Invoke(new Action(() =>
+                            {
+                                lstFiles.Items.Clear();
+                                lstFiles.Items.Add($"Error: {ex.Message}");
+                            }));
+                        }
                     }
-                }
-            });
+                });
+            }
+            catch (Exception ex)
+            {
+                lstFiles.Items.Clear();
+                lstFiles.Items.Add($"Error: {ex.Message}");
+            }
         }
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -570,9 +641,10 @@ namespace Client
                 return;
             }
 
-            if (lstFiles.SelectedItem == null || lstFiles.SelectedItem.ToString().StartsWith("Error:")
-                || lstFiles.SelectedItem.ToString().Contains("No files")
-                || lstFiles.SelectedItem.ToString().Contains("Loading"))
+            if (lstFiles.SelectedItem == null ||
+                lstFiles.SelectedItem.ToString().StartsWith("Error:") ||
+                lstFiles.SelectedItem.ToString().Contains("No files") ||
+                lstFiles.SelectedItem.ToString().Contains("Loading"))
             {
                 MessageBox.Show("Please select a valid file", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -586,44 +658,35 @@ namespace Client
                 return;
             }
 
-            string fileName = lstFiles.SelectedItem.ToString();
+            string selectedItem = lstFiles.SelectedItem.ToString();
+            string fileName = selectedItem.Split('(')[0].Trim();
 
             btnDownload.Enabled = false;
             btnRefresh.Enabled = false;
             progressDownload.Value = 0;
+            lblFileInfo.Text = $"Downloading: {fileName}";
 
-            await Task.Run(() =>
+            try
             {
-                try
+                NetworkStream downloadStream = client.GetStream();
+
+                await Task.Run(() =>
                 {
-                    formatter.Serialize(stream, CommandType.RequestFile);
-                    formatter.Serialize(stream, fileName);
-
-                    bool fileExists = (bool)formatter.Deserialize(stream);
-                    if (!fileExists)
+                    try
                     {
-                        if (this.InvokeRequired)
+                        FileTransferProtocol.SendString(downloadStream, CommandType.RequestFile.ToString());
+
+                        FileTransferProtocol.SendString(downloadStream, fileName);
+
+                        string response = FileTransferProtocol.ReceiveString(downloadStream);
+
+                        if (response != "FILE_EXISTS")
                         {
-                            this.Invoke(new Action(() =>
-                            {
-                                MessageBox.Show("File not found on server", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                btnDownload.Enabled = true;
-                                btnRefresh.Enabled = true;
-                            }));
+                            throw new Exception("File not found on server");
                         }
-                        return;
-                    }
 
-                    using (FileStream fs = new FileStream(savePath, FileMode.Create))
-                    {
-                        while (true)
+                        FileTransferProtocol.ReceiveFile(downloadStream, savePath, progress =>
                         {
-                            var packet = (FilePacket)formatter.Deserialize(stream);
-                            fs.Write(packet.FileData, 0, packet.FileData.Length);
-
-                            int progress = (int)((packet.PacketNumber * 100.0) / packet.TotalPackets);
-
                             if (this.InvokeRequired)
                             {
                                 this.Invoke(new Action(() =>
@@ -631,55 +694,72 @@ namespace Client
                                     progressDownload.Value = progress;
                                 }));
                             }
+                        });
 
-                            if (packet.PacketNumber == packet.TotalPackets)
-                                break;
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(new Action(() =>
+                            {
+                                progressDownload.Value = 100;
+                                MessageBox.Show($"✅ File downloaded successfully!\n\nSaved to: {savePath}",
+                                    "Download Complete",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                btnDownload.Enabled = true;
+                                btnRefresh.Enabled = true;
+                                savePath = null;
+                                lblDownloadPath.Text = "Save to: (not selected)";
+                                lblFileInfo.Text = "No file selected";
+                            }));
                         }
                     }
-
-                    if (this.InvokeRequired)
+                    catch (Exception ex)
                     {
-                        this.Invoke(new Action(() =>
-                        {
-                            progressDownload.Value = 100;
-                            MessageBox.Show($"File downloaded successfully!\n\nSaved to: {savePath}",
-                                "Download Complete",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            btnDownload.Enabled = true;
-                            btnRefresh.Enabled = true;
-                            savePath = null;
-                            lblDownloadPath.Text = "Save to: (not selected)";
-                        }));
+                        throw new Exception($"Download failed: {ex.Message}");
                     }
-                }
-                catch (Exception ex)
+                });
+            }
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
                 {
-                    if (this.InvokeRequired)
+                    this.Invoke(new Action(() =>
                     {
-                        this.Invoke(new Action(() =>
-                        {
-                            MessageBox.Show($"Download failed: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            btnDownload.Enabled = true;
-                            btnRefresh.Enabled = true;
-                        }));
-                    }
+                        MessageBox.Show($"❌ {ex.Message}", "Download Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        btnDownload.Enabled = true;
+                        btnRefresh.Enabled = true;
+                    }));
                 }
-            });
+            }
         }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
-                if (isConnected)
+                if (isConnected && stream != null)
                 {
-                    formatter.Serialize(stream, CommandType.Disconnect);
+                    FileTransferProtocol.SendString(stream, CommandType.Disconnect.ToString());
                     client.Close();
                 }
             }
             catch { }
+        }
+
+        private void grpDownload_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelDownload_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tabFileTransfer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

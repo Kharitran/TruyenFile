@@ -25,6 +25,8 @@ namespace Server
             connectedClients = new List<ClientSession>();
             auth = new Authentication();
             UpdateStatusLabel(false);
+
+            lblVersion.Text = $"v1.0.0 • {DateTime.Now.Year} • TCP File Transfer Server";
         }
 
         private void UpdateStatusLabel(bool isRunning)
@@ -154,7 +156,6 @@ namespace Server
         {
             isRunning = false;
 
-            // Disconnect all clients
             foreach (var client in connectedClients.ToList())
             {
                 try
@@ -237,6 +238,16 @@ namespace Server
         internal void UpdateClientList()
         {
             throw new NotImplementedException();
+        }
+
+        private void txtStoragePath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblServerTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

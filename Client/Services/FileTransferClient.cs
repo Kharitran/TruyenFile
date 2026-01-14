@@ -29,7 +29,6 @@ namespace Client.Services
                 formatter = new BinaryFormatter();
                 isConnected = true;
 
-                // Kích hoạt event
                 StatusChanged?.Invoke($"Connected to {ip}:{port}");
                 return true;
             }
@@ -125,7 +124,6 @@ namespace Client.Services
             }
         }
 
-        // Thêm method để download file
         public async Task<bool> DownloadFileAsync(string fileName, string savePath)
         {
             return await Task.Run(() => DownloadFile(fileName, savePath));
@@ -178,7 +176,6 @@ namespace Client.Services
             }
         }
 
-        // Thêm method để lấy danh sách file
         public async Task<string[]> GetFileListAsync()
         {
             return await Task.Run(() => GetFileList());
