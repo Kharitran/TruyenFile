@@ -145,9 +145,9 @@
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(150, 120);
+            this.btnStop.Location = new System.Drawing.Point(146, 120);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(120, 40);
+            this.btnStop.Size = new System.Drawing.Size(134, 40);
             this.btnStop.TabIndex = 5;
             this.btnStop.Text = "⏹ Stop Server";
             this.btnStop.UseVisualStyleBackColor = false;
@@ -182,9 +182,9 @@
             // 
             // numPort
             // 
-            this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numPort.Location = new System.Drawing.Point(60, 168);
+            this.numPort.Location = new System.Drawing.Point(64, 170);
             this.numPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -196,7 +196,7 @@
             0,
             0});
             this.numPort.Name = "numPort";
-            this.numPort.Size = new System.Drawing.Size(80, 23);
+            this.numPort.Size = new System.Drawing.Size(80, 27);
             this.numPort.TabIndex = 8;
             this.numPort.Value = new decimal(new int[] {
             8888,
@@ -217,11 +217,11 @@
             // 
             // txtStoragePath
             // 
-            this.txtStoragePath.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStoragePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStoragePath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStoragePath.Location = new System.Drawing.Point(122, 210);
+            this.txtStoragePath.Location = new System.Drawing.Point(122, 208);
             this.txtStoragePath.Name = "txtStoragePath";
-            this.txtStoragePath.Size = new System.Drawing.Size(250, 20);
+            this.txtStoragePath.Size = new System.Drawing.Size(250, 27);
             this.txtStoragePath.TabIndex = 10;
             this.txtStoragePath.Text = "ServerStorage";
             this.txtStoragePath.TextChanged += new System.EventHandler(this.txtStoragePath_TextChanged);
@@ -233,7 +233,7 @@
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowse.ForeColor = System.Drawing.Color.White;
-            this.btnBrowse.Location = new System.Drawing.Point(405, 210);
+            this.btnBrowse.Location = new System.Drawing.Point(378, 208);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(89, 27);
             this.btnBrowse.TabIndex = 11;
@@ -311,6 +311,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.lblStatus);
             this.panel3.Controls.Add(this.btnBrowse);
             this.panel3.Controls.Add(this.btnStart);

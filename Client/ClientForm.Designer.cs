@@ -179,7 +179,7 @@
             this.grpRegister.Controls.Add(this.lblRegPassword);
             this.grpRegister.Controls.Add(this.txtRegUsername);
             this.grpRegister.Controls.Add(this.lblRegUsername);
-            this.grpRegister.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpRegister.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.grpRegister.Location = new System.Drawing.Point(0, 330);
             this.grpRegister.Name = "grpRegister";
@@ -204,7 +204,7 @@
             this.btnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
             this.btnRegister.FlatAppearance.BorderSize = 0;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegister.ForeColor = System.Drawing.Color.White;
             this.btnRegister.Location = new System.Drawing.Point(20, 135);
             this.btnRegister.Name = "btnRegister";
@@ -216,12 +216,12 @@
             // 
             // txtConfirmPassword
             // 
-            this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(150, 100);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(154, 104);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '●';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(250, 20);
+            this.txtConfirmPassword.Size = new System.Drawing.Size(250, 27);
             this.txtConfirmPassword.TabIndex = 5;
             // 
             // lblConfirmPassword
@@ -234,15 +234,16 @@
             this.lblConfirmPassword.Size = new System.Drawing.Size(130, 20);
             this.lblConfirmPassword.TabIndex = 4;
             this.lblConfirmPassword.Text = "Confirm Password:";
+            this.lblConfirmPassword.Click += new System.EventHandler(this.lblConfirmPassword_Click);
             // 
             // txtRegPassword
             // 
-            this.txtRegPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRegPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRegPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegPassword.Location = new System.Drawing.Point(150, 70);
+            this.txtRegPassword.Location = new System.Drawing.Point(104, 71);
             this.txtRegPassword.Name = "txtRegPassword";
             this.txtRegPassword.PasswordChar = '●';
-            this.txtRegPassword.Size = new System.Drawing.Size(250, 20);
+            this.txtRegPassword.Size = new System.Drawing.Size(250, 27);
             this.txtRegPassword.TabIndex = 3;
             // 
             // lblRegPassword
@@ -258,11 +259,11 @@
             // 
             // txtRegUsername
             // 
-            this.txtRegUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRegUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRegUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegUsername.Location = new System.Drawing.Point(150, 30);
+            this.txtRegUsername.Location = new System.Drawing.Point(104, 29);
             this.txtRegUsername.Name = "txtRegUsername";
-            this.txtRegUsername.Size = new System.Drawing.Size(250, 20);
+            this.txtRegUsername.Size = new System.Drawing.Size(250, 27);
             this.txtRegUsername.TabIndex = 1;
             // 
             // lblRegUsername
@@ -287,7 +288,7 @@
             this.grpLogin.Controls.Add(this.lblPassword);
             this.grpLogin.Controls.Add(this.txtUsername);
             this.grpLogin.Controls.Add(this.lblUsername);
-            this.grpLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpLogin.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.grpLogin.Location = new System.Drawing.Point(0, 160);
             this.grpLogin.Name = "grpLogin";
@@ -312,7 +313,7 @@
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.Location = new System.Drawing.Point(20, 105);
             this.btnLogin.Name = "btnLogin";
@@ -324,12 +325,12 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(90, 70);
+            this.txtPassword.Location = new System.Drawing.Point(104, 71);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(250, 20);
+            this.txtPassword.Size = new System.Drawing.Size(250, 27);
             this.txtPassword.TabIndex = 3;
             // 
             // lblPassword
@@ -345,11 +346,11 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername.Location = new System.Drawing.Point(90, 30);
+            this.txtUsername.Location = new System.Drawing.Point(104, 31);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(250, 20);
+            this.txtUsername.Size = new System.Drawing.Size(250, 27);
             this.txtUsername.TabIndex = 1;
             // 
             // lblUsername
@@ -375,7 +376,7 @@
             this.grpConnection.Controls.Add(this.lblPort);
             this.grpConnection.Controls.Add(this.txtServerIP);
             this.grpConnection.Controls.Add(this.lblServerIP);
-            this.grpConnection.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpConnection.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpConnection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.grpConnection.Location = new System.Drawing.Point(0, 0);
             this.grpConnection.Name = "grpConnection";
@@ -391,7 +392,7 @@
             this.btnDisconnect.Enabled = false;
             this.btnDisconnect.FlatAppearance.BorderSize = 0;
             this.btnDisconnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDisconnect.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnDisconnect.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDisconnect.ForeColor = System.Drawing.Color.White;
             this.btnDisconnect.Location = new System.Drawing.Point(660, 80);
             this.btnDisconnect.Name = "btnDisconnect";
@@ -418,7 +419,7 @@
             this.btnConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnConnect.FlatAppearance.BorderSize = 0;
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnConnect.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnect.ForeColor = System.Drawing.Color.White;
             this.btnConnect.Location = new System.Drawing.Point(520, 80);
             this.btnConnect.Name = "btnConnect";
@@ -431,9 +432,9 @@
             // numPort
             // 
             this.numPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numPort.Location = new System.Drawing.Point(680, 35);
+            this.numPort.Location = new System.Drawing.Point(684, 36);
             this.numPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -445,13 +446,14 @@
             0,
             0});
             this.numPort.Name = "numPort";
-            this.numPort.Size = new System.Drawing.Size(100, 23);
+            this.numPort.Size = new System.Drawing.Size(100, 27);
             this.numPort.TabIndex = 3;
             this.numPort.Value = new decimal(new int[] {
             8888,
             0,
             0,
             0});
+            this.numPort.ValueChanged += new System.EventHandler(this.numPort_ValueChanged);
             // 
             // lblPort
             // 
@@ -469,11 +471,11 @@
             // 
             this.txtServerIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtServerIP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServerIP.Location = new System.Drawing.Point(80, 35);
+            this.txtServerIP.Location = new System.Drawing.Point(100, 36);
             this.txtServerIP.Name = "txtServerIP";
-            this.txtServerIP.Size = new System.Drawing.Size(540, 20);
+            this.txtServerIP.Size = new System.Drawing.Size(540, 27);
             this.txtServerIP.TabIndex = 1;
             this.txtServerIP.Text = "127.0.0.1";
             // 
@@ -492,10 +494,10 @@
             // 
             this.tabFileTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.tabFileTransfer.Controls.Add(this.panelContainer);
-            this.tabFileTransfer.Location = new System.Drawing.Point(4, 25);
+            this.tabFileTransfer.Location = new System.Drawing.Point(4, 29);
             this.tabFileTransfer.Name = "tabFileTransfer";
             this.tabFileTransfer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFileTransfer.Size = new System.Drawing.Size(890, 583);
+            this.tabFileTransfer.Size = new System.Drawing.Size(890, 579);
             this.tabFileTransfer.TabIndex = 1;
             this.tabFileTransfer.Text = "File Transfer";
             this.tabFileTransfer.Click += new System.EventHandler(this.tabFileTransfer_Click);
@@ -508,7 +510,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(3, 3);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(884, 577);
+            this.panelContainer.Size = new System.Drawing.Size(884, 573);
             this.panelContainer.TabIndex = 3;
             // 
             // grpDownload
@@ -518,7 +520,7 @@
             this.grpDownload.BackColor = System.Drawing.Color.Transparent;
             this.grpDownload.Controls.Add(this.panelDownload);
             this.grpDownload.Controls.Add(this.lstFiles);
-            this.grpDownload.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpDownload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpDownload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.grpDownload.Location = new System.Drawing.Point(0, 250);
             this.grpDownload.Name = "grpDownload";
@@ -561,7 +563,7 @@
             this.btnSaveAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.btnSaveAs.FlatAppearance.BorderSize = 0;
             this.btnSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveAs.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveAs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveAs.ForeColor = System.Drawing.Color.White;
             this.btnSaveAs.Location = new System.Drawing.Point(20, 104);
             this.btnSaveAs.Name = "btnSaveAs";
@@ -594,7 +596,7 @@
             this.btnDownload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnDownload.FlatAppearance.BorderSize = 0;
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDownload.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnDownload.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownload.ForeColor = System.Drawing.Color.White;
             this.btnDownload.Location = new System.Drawing.Point(20, 64);
             this.btnDownload.Name = "btnDownload";
@@ -610,7 +612,7 @@
             this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
             this.btnRefresh.Location = new System.Drawing.Point(679, 102);
             this.btnRefresh.Name = "btnRefresh";
@@ -642,7 +644,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpUpload.BackColor = System.Drawing.Color.Transparent;
             this.grpUpload.Controls.Add(this.panelUpload);
-            this.grpUpload.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpUpload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpUpload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.grpUpload.Location = new System.Drawing.Point(0, 0);
             this.grpUpload.Name = "grpUpload";
@@ -683,7 +685,7 @@
             this.btnUpload.Enabled = false;
             this.btnUpload.FlatAppearance.BorderSize = 0;
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpload.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnUpload.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpload.ForeColor = System.Drawing.Color.White;
             this.btnUpload.Location = new System.Drawing.Point(20, 150);
             this.btnUpload.Name = "btnUpload";
@@ -715,7 +717,7 @@
             this.btnBrowse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBrowse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowse.ForeColor = System.Drawing.Color.White;
             this.btnBrowse.Location = new System.Drawing.Point(20, 50);
             this.btnBrowse.Name = "btnBrowse";

@@ -761,5 +761,15 @@ namespace Client
         {
 
         }
+
+        private void numPort_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblConfirmPassword_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
