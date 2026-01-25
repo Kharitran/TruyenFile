@@ -28,6 +28,7 @@ _ Hệ thống Client
 - Bảo mật: SHA256 Hashing 
 
 4. Hướng dẫn cài đặt & Sử dụng
+   
 a. Yêu cầu hệ thống
 - Visual Studio 2022 trở lên.
 - .NET Framework 4.7.2 SDK.
