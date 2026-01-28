@@ -40,6 +40,9 @@ namespace Client
             lblLoginStatus.ForeColor = Color.Red;
             lblRegStatus.Text = "Not connected";
             lblRegStatus.ForeColor = Color.Red;
+
+            numPort.Value = 8888;
+            txtServerIP.Text = "";
         }
 
         private void UpdateConnectionStatus(bool connected, string message = "")
@@ -86,7 +89,6 @@ namespace Client
         {
             ConnectToServer();
         }
-
         private async void ConnectToServer()
         {
             try
@@ -109,11 +111,9 @@ namespace Client
                     try
                     {
                         client = new TcpClient();
+                        client.ReceiveTimeout = 30000;
+                        client.SendTimeout = 30000;
 
-                        client.ReceiveTimeout = 30000; 
-                        client.SendTimeout = 30000; 
-
-                        // Kết nối với timeout
                         IAsyncResult result = client.BeginConnect(ip, port, null, null);
                         bool success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(10));
 
@@ -123,7 +123,6 @@ namespace Client
                         }
 
                         client.EndConnect(result);
-
                         stream = client.GetStream();
                         formatter = new BinaryFormatter();
 
@@ -163,11 +162,7 @@ namespace Client
             catch { }
             finally
             {
-                try
-                {
-                    client?.Close();
-                }
-                catch { }
+                try { client?.Close(); } catch { }
                 UpdateConnectionStatus(false, "Disconnected");
             }
         }
@@ -185,7 +180,6 @@ namespace Client
                 lblLoginStatus.ForeColor = Color.Red;
                 return;
             }
-
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
@@ -204,45 +198,37 @@ namespace Client
                 try
                 {
                     FileTransferProtocol.SendString(stream, CommandType.Login.ToString());
-
                     FileTransferProtocol.SendString(stream, username);
                     FileTransferProtocol.SendString(stream, password);
 
                     string response = FileTransferProtocol.ReceiveString(stream);
 
-                    if (this.InvokeRequired)
+                    this.Invoke(new Action(() =>
                     {
-                        this.Invoke(new Action(() =>
+                        if (response == ResponseCode.LoginSuccess.ToString())
                         {
-                            if (response == ResponseCode.LoginSuccess.ToString())
-                            {
-                                lblLoginStatus.Text = "Login successful!";
-                                lblLoginStatus.ForeColor = Color.Green;
-                                isLoggedIn = true;
-                                currentUsername = username;
-                                tabFileTransfer.Enabled = true;
-                                tabControl.SelectedTab = tabFileTransfer;
-
-                                txtPassword.Clear();
-                            }
-                            else
-                            {
-                                lblLoginStatus.Text = "Login failed! Invalid credentials";
-                                lblLoginStatus.ForeColor = Color.Red;
-                            }
-                        }));
-                    }
+                            lblLoginStatus.Text = "Login successful!";
+                            lblLoginStatus.ForeColor = Color.Green;
+                            isLoggedIn = true;
+                            currentUsername = username;
+                            tabFileTransfer.Enabled = true;
+                            tabControl.SelectedTab = tabFileTransfer;
+                            txtPassword.Clear();
+                            RefreshFileList();
+                        }
+                        else
+                        {
+                            lblLoginStatus.Text = "Login failed! Invalid credentials";
+                            lblLoginStatus.ForeColor = Color.Red;
+                        }
+                    }));
                 }
                 catch (Exception ex)
                 {
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action(() =>
-                        {
-                            lblLoginStatus.Text = $"Login error: {ex.Message}";
-                            lblLoginStatus.ForeColor = Color.Red;
-                        }));
-                    }
+                    this.Invoke(new Action(() => {
+                        lblLoginStatus.Text = $"Login error: {ex.Message}";
+                        lblLoginStatus.ForeColor = Color.Red;
+                    }));
                 }
             });
         }
@@ -294,46 +280,36 @@ namespace Client
                 try
                 {
                     FileTransferProtocol.SendString(stream, CommandType.Register.ToString());
-
                     FileTransferProtocol.SendString(stream, username);
                     FileTransferProtocol.SendString(stream, password);
 
                     string response = FileTransferProtocol.ReceiveString(stream);
 
-                    if (this.InvokeRequired)
+                    this.Invoke(new Action(() =>
                     {
-                        this.Invoke(new Action(() =>
+                        if (response == ResponseCode.RegisterSuccess.ToString())
                         {
-                            if (response == ResponseCode.RegisterSuccess.ToString())
-                            {
-                                lblRegStatus.Text = "Registration successful!";
-                                lblRegStatus.ForeColor = Color.Green;
-
-                                txtRegUsername.Clear();
-                                txtRegPassword.Clear();
-                                txtConfirmPassword.Clear();
-
-                                txtUsername.Text = username;
-                                txtPassword.Focus();
-                            }
-                            else
-                            {
-                                lblRegStatus.Text = "Registration failed! Username may exist";
-                                lblRegStatus.ForeColor = Color.Red;
-                            }
-                        }));
-                    }
+                            lblRegStatus.Text = "Registration successful!";
+                            lblRegStatus.ForeColor = Color.Green;
+                            txtRegUsername.Clear();
+                            txtRegPassword.Clear();
+                            txtConfirmPassword.Clear();
+                            txtUsername.Text = username;
+                            txtPassword.Focus();
+                        }
+                        else
+                        {
+                            lblRegStatus.Text = "Registration failed! Username may exist";
+                            lblRegStatus.ForeColor = Color.Red;
+                        }
+                    }));
                 }
                 catch (Exception ex)
                 {
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action(() =>
-                        {
-                            lblRegStatus.Text = $"Register error: {ex.Message}";
-                            lblRegStatus.ForeColor = Color.Red;
-                        }));
-                    }
+                    this.Invoke(new Action(() => {
+                        lblRegStatus.Text = $"Register error: {ex.Message}";
+                        lblRegStatus.ForeColor = Color.Red;
+                    }));
                 }
             });
         }
@@ -350,7 +326,6 @@ namespace Client
                 {
                     selectedFile = dialog.FileName;
                     FileInfo fileInfo = new FileInfo(selectedFile);
-
                     lblSelectedFile.Text = $"{fileInfo.Name} ({FormatFileSize(fileInfo.Length)})";
                     btnUpload.Enabled = true;
                     progressUpload.Value = 0;
@@ -365,13 +340,11 @@ namespace Client
             string[] sizes = { "B", "KB", "MB", "GB" };
             int order = 0;
             double len = bytes;
-
             while (len >= 1024 && order < sizes.Length - 1)
             {
                 order++;
                 len = len / 1024;
             }
-
             return $"{len:0.##} {sizes[order]}";
         }
 
@@ -384,23 +357,20 @@ namespace Client
         {
             if (!isConnected || !isLoggedIn)
             {
-                MessageBox.Show("Please connect and login first", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please connect and login first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrEmpty(selectedFile) || !File.Exists(selectedFile))
             {
-                MessageBox.Show("Please select a valid file", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a valid file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             FileInfo fileInfo = new FileInfo(selectedFile);
-            if (fileInfo.Length >  1024 * 1024 * 1024)
+            if (fileInfo.Length > 1024 * 1024 * 1024)
             {
-                MessageBox.Show("File size is too large (max 1GB)", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File size is too large (max 1GB)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -408,7 +378,6 @@ namespace Client
             btnBrowse.Enabled = false;
             lblUploadStatus.Text = "Preparing upload...";
             lblUploadStatus.ForeColor = Color.Orange;
-            progressUpload.Value = 0;
 
             try
             {
@@ -419,34 +388,27 @@ namespace Client
                     try
                     {
                         FileTransferProtocol.SendString(uploadStream, CommandType.SendFile.ToString());
-
                         string fileName = Path.GetFileName(selectedFile);
                         FileTransferProtocol.SendString(uploadStream, fileName);
 
-                        FileTransferProtocol.SendFile(uploadStream, selectedFile, progress =>
+                        // ĐỒNG BỘ: Chờ tín hiệu sẵn sàng từ Server
+                        string readySignal = FileTransferProtocol.ReceiveString(uploadStream);
+
+                        if (readySignal == "READY_TO_RECEIVE")
                         {
-                            
-                            if (this.InvokeRequired)
+                            FileTransferProtocol.SendFile(uploadStream, selectedFile, progress =>
                             {
                                 this.Invoke(new Action(() =>
                                 {
                                     progressUpload.Value = progress;
                                     lblUploadStatus.Text = $"Uploading... {progress}%";
-
-                                    if (progress < 30)
-                                        lblUploadStatus.ForeColor = Color.Orange;
-                                    else if (progress < 70)
-                                        lblUploadStatus.ForeColor = Color.Blue;
-                                    else
-                                        lblUploadStatus.ForeColor = Color.Green;
+                                    if (progress < 30) lblUploadStatus.ForeColor = Color.Orange;
+                                    else if (progress < 70) lblUploadStatus.ForeColor = Color.Blue;
+                                    else lblUploadStatus.ForeColor = Color.Green;
                                 }));
-                            }
-                        });
+                            });
 
-                        string response = FileTransferProtocol.ReceiveString(uploadStream);
-
-                        if (this.InvokeRequired)
-                        {
+                            string response = FileTransferProtocol.ReceiveString(uploadStream);
                             this.Invoke(new Action(() =>
                             {
                                 if (response == ResponseCode.FileReceived.ToString())
@@ -455,31 +417,20 @@ namespace Client
                                     lblUploadStatus.Text = "✅ Upload completed successfully!";
                                     lblUploadStatus.ForeColor = Color.Green;
                                 }
-                                else if (response.StartsWith("ERROR:"))
-                                {
-                                    string errorMsg = response.Substring(6);
-                                    lblUploadStatus.Text = $"❌ {errorMsg}";
-                                    lblUploadStatus.ForeColor = Color.Red;
-                                    btnUpload.Enabled = true;
-                                }
                                 else
                                 {
-                                    lblUploadStatus.Text = $"⚠️ Unknown response: {response}";
-                                    lblUploadStatus.ForeColor = Color.Orange;
-                                    btnUpload.Enabled = true;
+                                    lblUploadStatus.Text = $"❌ {response}";
+                                    lblUploadStatus.ForeColor = Color.Red;
                                 }
-
                                 btnBrowse.Enabled = true;
-                                lblSelectedFile.Text = "No file selected";
-                                selectedFile = null;
-
+                                btnUpload.Enabled = true;
                                 RefreshFileList();
                             }));
                         }
-                    }
-                    catch (IOException ioEx)
-                    {
-                        throw new Exception($"File I/O error: {ioEx.Message}");
+                        else
+                        {
+                            throw new Exception(readySignal);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -489,21 +440,10 @@ namespace Client
             }
             catch (Exception ex)
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        lblUploadStatus.Text = $"❌ {ex.Message}";
-                        lblUploadStatus.ForeColor = Color.Red;
-                        btnBrowse.Enabled = true;
-                        btnUpload.Enabled = true;
-
-                        if (!client.Connected)
-                        {
-                            UpdateConnectionStatus(false, "Connection lost");
-                        }
-                    }));
-                }
+                lblUploadStatus.Text = $"❌ {ex.Message}";
+                lblUploadStatus.ForeColor = Color.Red;
+                btnBrowse.Enabled = true;
+                btnUpload.Enabled = true;
             }
         }
 
@@ -512,16 +452,9 @@ namespace Client
             RefreshFileList();
         }
 
-        
-
         private async void RefreshFileList()
         {
-            if (!isConnected || !isLoggedIn)
-            {
-                MessageBox.Show("Please connect and login first", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            if (!isConnected || !isLoggedIn) return;
 
             lstFiles.Items.Clear();
             lstFiles.Items.Add("Loading...");
@@ -529,78 +462,51 @@ namespace Client
             try
             {
                 NetworkStream listStream = client.GetStream();
-
                 await Task.Run(() =>
                 {
                     try
                     {
                         FileTransferProtocol.SendString(listStream, CommandType.ListFiles.ToString());
-
                         string fileListData = FileTransferProtocol.ReceiveString(listStream);
 
-                        if (this.InvokeRequired)
+                        this.Invoke(new Action(() =>
                         {
-                            this.Invoke(new Action(() =>
+                            lstFiles.Items.Clear();
+                            if (fileListData == "ERROR" || fileListData == "EMPTY")
                             {
-                                lstFiles.Items.Clear();
+                                lstFiles.Items.Add(fileListData == "EMPTY" ? "No files available" : "Error getting list");
+                                return;
+                            }
 
-                                if (fileListData == "ERROR")
+                            string[] lines = fileListData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (string line in lines)
+                            {
+                                string[] parts = line.Split('|');
+                                if (parts.Length >= 2)
                                 {
-                                    lstFiles.Items.Add("Error getting file list");
-                                    return;
+                                    long fileSize = long.Parse(parts[1]);
+                                    lstFiles.Items.Add($"{parts[0]} ({FormatFileSize(fileSize)})");
                                 }
-
-                                string[] lines = fileListData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-                                if (lines.Length == 0)
-                                {
-                                    lstFiles.Items.Add("No files available on server");
-                                }
-                                else
-                                {
-                                    foreach (string line in lines)
-                                    {
-                                        string[] parts = line.Split('|');
-                                        if (parts.Length >= 1)
-                                        {
-                                            string displayText = parts[0];
-                                            if (parts.Length >= 2)
-                                            {
-                                                long fileSize = long.Parse(parts[1]);
-                                                displayText += $" ({FormatFileSize(fileSize)})";
-                                            }
-                                            lstFiles.Items.Add(displayText);
-                                        }
-                                    }
-                                }
-                            }));
-                        }
+                            }
+                        }));
                     }
                     catch (Exception ex)
                     {
-                        if (this.InvokeRequired)
-                        {
-                            this.Invoke(new Action(() =>
-                            {
-                                lstFiles.Items.Clear();
-                                lstFiles.Items.Add($"Error: {ex.Message}");
-                            }));
-                        }
+                        this.Invoke(new Action(() => { lstFiles.Items.Clear(); lstFiles.Items.Add($"Error: {ex.Message}"); }));
                     }
                 });
             }
             catch (Exception ex)
             {
-                lstFiles.Items.Clear();
                 lstFiles.Items.Add($"Error: {ex.Message}");
             }
         }
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstFiles.SelectedItem != null && !lstFiles.SelectedItem.ToString().StartsWith("Error:")
-                && !lstFiles.SelectedItem.ToString().Contains("No files")
-                && !lstFiles.SelectedItem.ToString().Contains("Loading"))
+            if (lstFiles.SelectedItem != null && !lstFiles.SelectedItem.ToString().Contains("No files")
+                && !lstFiles.SelectedItem.ToString().Contains("Loading")
+                && !lstFiles.SelectedItem.ToString().Contains("Error"))
             {
                 lblFileInfo.Text = $"Selected: {lstFiles.SelectedItem}";
                 btnDownload.Enabled = true;
@@ -617,7 +523,11 @@ namespace Client
             {
                 dialog.Title = "Select location to save file";
                 dialog.Filter = "All files (*.*)|*.*";
-                dialog.OverwritePrompt = true;
+                if (lstFiles.SelectedItem != null)
+                {
+                    string selectedItem = lstFiles.SelectedItem.ToString();
+                    dialog.FileName = selectedItem.Split('(')[0].Trim();
+                }
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -634,27 +544,11 @@ namespace Client
 
         private async void DownloadFile()
         {
-            if (!isConnected || !isLoggedIn)
-            {
-                MessageBox.Show("Please connect and login first", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (lstFiles.SelectedItem == null ||
-                lstFiles.SelectedItem.ToString().StartsWith("Error:") ||
-                lstFiles.SelectedItem.ToString().Contains("No files") ||
-                lstFiles.SelectedItem.ToString().Contains("Loading"))
-            {
-                MessageBox.Show("Please select a valid file", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            if (!isConnected || !isLoggedIn) return;
 
             if (string.IsNullOrEmpty(savePath))
             {
-                MessageBox.Show("Please select a save location first", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please click 'Choose Location' first!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -669,49 +563,30 @@ namespace Client
             try
             {
                 NetworkStream downloadStream = client.GetStream();
-
                 await Task.Run(() =>
                 {
                     try
                     {
                         FileTransferProtocol.SendString(downloadStream, CommandType.RequestFile.ToString());
-
                         FileTransferProtocol.SendString(downloadStream, fileName);
 
                         string response = FileTransferProtocol.ReceiveString(downloadStream);
-
-                        if (response != "FILE_EXISTS")
-                        {
-                            throw new Exception("File not found on server");
-                        }
+                        if (response != "FILE_EXISTS") throw new Exception("File not found on server");
 
                         FileTransferProtocol.ReceiveFile(downloadStream, savePath, progress =>
                         {
-                            if (this.InvokeRequired)
-                            {
-                                this.Invoke(new Action(() =>
-                                {
-                                    progressDownload.Value = progress;
-                                }));
-                            }
+                            this.Invoke(new Action(() => { progressDownload.Value = progress; }));
                         });
 
-                        if (this.InvokeRequired)
+                        this.Invoke(new Action(() =>
                         {
-                            this.Invoke(new Action(() =>
-                            {
-                                progressDownload.Value = 100;
-                                MessageBox.Show($"✅ File downloaded successfully!\n\nSaved to: {savePath}",
-                                    "Download Complete",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                btnDownload.Enabled = true;
-                                btnRefresh.Enabled = true;
-                                savePath = null;
-                                lblDownloadPath.Text = "Save to: (not selected)";
-                                lblFileInfo.Text = "No file selected";
-                            }));
-                        }
+                            progressDownload.Value = 100;
+                            MessageBox.Show($"✅ Download successful!\nSaved to: {savePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            btnDownload.Enabled = true;
+                            btnRefresh.Enabled = true;
+                            savePath = null;
+                            lblDownloadPath.Text = "Save to: (not selected)";
+                        }));
                     }
                     catch (Exception ex)
                     {
@@ -721,55 +596,22 @@ namespace Client
             }
             catch (Exception ex)
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        MessageBox.Show($"❌ {ex.Message}", "Download Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnDownload.Enabled = true;
-                        btnRefresh.Enabled = true;
-                    }));
-                }
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnDownload.Enabled = true;
+                btnRefresh.Enabled = true;
             }
         }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                if (isConnected && stream != null)
-                {
-                    FileTransferProtocol.SendString(stream, CommandType.Disconnect.ToString());
-                    client.Close();
-                }
-            }
-            catch { }
+            DisconnectFromServer();
         }
 
-        private void grpDownload_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelDownload_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tabFileTransfer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numPort_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblConfirmPassword_Click(object sender, EventArgs e)
-        {
-
-        }
+        // Các hàm Enter/Paint/Click để trống nếu không dùng đến
+        private void grpDownload_Enter(object sender, EventArgs e) { }
+        private void panelDownload_Paint(object sender, PaintEventArgs e) { }
+        private void tabFileTransfer_Click(object sender, EventArgs e) { }
+        private void numPort_ValueChanged(object sender, EventArgs e) { }
+        private void lblConfirmPassword_Click(object sender, EventArgs e) { }
     }
 }

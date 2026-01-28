@@ -34,11 +34,9 @@ namespace Server.Core
             this.serverForm = serverForm;
             this.IPAddress = ((System.Net.IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
 
-            // SỬA: Đặt timeout hợp lý thay vì 0
-            this.client.ReceiveTimeout = 300000; // 5 phút cho file lớn
+            this.client.ReceiveTimeout = 300000; 
             this.client.SendTimeout = 300000;
 
-            // Tăng buffer size cho file lớn
             this.client.SendBufferSize = 65536;
             this.client.ReceiveBufferSize = 65536;
 
@@ -53,7 +51,6 @@ namespace Server.Core
                 {
                     try
                     {
-                        // KIỂM TRA STREAM CÓ DỮ LIỆU KHÔNG
                         if (!stream.DataAvailable)
                         {
                             Thread.Sleep(100);
@@ -138,7 +135,6 @@ namespace Server.Core
                 string username = FileTransferProtocol.ReceiveString(stream);
                 string password = FileTransferProtocol.ReceiveString(stream);
 
-                // VALIDATION
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Username and password required");

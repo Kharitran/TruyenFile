@@ -22,7 +22,6 @@ namespace SharedLibrary.Protocol
             stream.Flush();
         }
 
-        // Receive string với length prefix
         public static string ReceiveString(NetworkStream stream)
         {
             byte[] lengthBytes = new byte[4];

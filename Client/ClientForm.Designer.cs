@@ -477,7 +477,6 @@
             this.txtServerIP.Name = "txtServerIP";
             this.txtServerIP.Size = new System.Drawing.Size(540, 27);
             this.txtServerIP.TabIndex = 1;
-            this.txtServerIP.Text = "127.0.0.1";
             // 
             // lblServerIP
             // 
@@ -494,10 +493,10 @@
             // 
             this.tabFileTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.tabFileTransfer.Controls.Add(this.panelContainer);
-            this.tabFileTransfer.Location = new System.Drawing.Point(4, 29);
+            this.tabFileTransfer.Location = new System.Drawing.Point(4, 25);
             this.tabFileTransfer.Name = "tabFileTransfer";
             this.tabFileTransfer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFileTransfer.Size = new System.Drawing.Size(890, 579);
+            this.tabFileTransfer.Size = new System.Drawing.Size(890, 583);
             this.tabFileTransfer.TabIndex = 1;
             this.tabFileTransfer.Text = "File Transfer";
             this.tabFileTransfer.Click += new System.EventHandler(this.tabFileTransfer_Click);
@@ -510,7 +509,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(3, 3);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(884, 573);
+            this.panelContainer.Size = new System.Drawing.Size(884, 577);
             this.panelContainer.TabIndex = 3;
             // 
             // grpDownload
