@@ -325,7 +325,7 @@ namespace Client
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    selectedFile = dialog.FileName;
+                    selectedFile = Path.GetFullPath(dialog.FileName);
                     FileInfo fileInfo = new FileInfo(selectedFile);
                     lblSelectedFile.Text = $"{fileInfo.Name} ({FormatFileSize(fileInfo.Length)})";
                     btnUpload.Enabled = true;
