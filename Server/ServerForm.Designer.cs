@@ -66,9 +66,7 @@
             this.headerPanel.SuspendLayout();
             this.footerPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblStatus
-            // 
+           
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
@@ -77,9 +75,7 @@
             this.lblStatus.Size = new System.Drawing.Size(133, 23);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Server: Stopped";
-            // 
-            // lblClients
-            // 
+            
             this.lblClients.AutoSize = true;
             this.lblClients.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClients.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -88,9 +84,7 @@
             this.lblClients.Size = new System.Drawing.Size(131, 20);
             this.lblClients.TabIndex = 1;
             this.lblClients.Text = "Connected Clients:";
-            // 
-            // lstClients
-            // 
+            
             this.lstClients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -104,9 +98,7 @@
             this.lstClients.Name = "lstClients";
             this.lstClients.Size = new System.Drawing.Size(280, 180);
             this.lstClients.TabIndex = 2;
-            // 
-            // txtLog
-            // 
+            
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -121,9 +113,7 @@
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLog.Size = new System.Drawing.Size(380, 199);
             this.txtLog.TabIndex = 3;
-            // 
-            // btnStart
-            // 
+            
             this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnStart.FlatAppearance.BorderSize = 0;
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -136,9 +126,7 @@
             this.btnStart.Text = "▶ Start Server";
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnStop
-            // 
+             
             this.btnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.btnStop.Enabled = false;
             this.btnStop.FlatAppearance.BorderSize = 0;
@@ -152,9 +140,7 @@
             this.btnStop.Text = "⏹ Stop Server";
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnClearLog
-            // 
+            
             this.btnClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.btnClearLog.FlatAppearance.BorderSize = 0;
@@ -168,9 +154,7 @@
             this.btnClearLog.Text = "Clear Log";
             this.btnClearLog.UseVisualStyleBackColor = false;
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
-            // 
-            // lblPort
-            // 
+           
             this.lblPort.AutoSize = true;
             this.lblPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPort.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -179,9 +163,7 @@
             this.lblPort.Size = new System.Drawing.Size(38, 20);
             this.lblPort.TabIndex = 7;
             this.lblPort.Text = "Port:";
-            // 
-            // numPort
-            // 
+            
             this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numPort.Location = new System.Drawing.Point(64, 170);
@@ -203,9 +185,7 @@
             0,
             0,
             0});
-            // 
-            // lblStorage
-            // 
+            
             this.lblStorage.AutoSize = true;
             this.lblStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStorage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -214,9 +194,7 @@
             this.lblStorage.Size = new System.Drawing.Size(96, 20);
             this.lblStorage.TabIndex = 9;
             this.lblStorage.Text = "Storage Path:";
-            // 
-            // txtStoragePath
-            // 
+           
             this.txtStoragePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStoragePath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStoragePath.Location = new System.Drawing.Point(122, 208);
@@ -225,9 +203,7 @@
             this.txtStoragePath.TabIndex = 10;
             this.txtStoragePath.Text = "ServerStorage";
             this.txtStoragePath.TextChanged += new System.EventHandler(this.txtStoragePath_TextChanged);
-            // 
-            // btnBrowse
-            // 
+            
             this.btnBrowse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -240,9 +216,7 @@
             this.btnBrowse.Text = "Browse...";
             this.btnBrowse.UseVisualStyleBackColor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
-            // 
-            // lblServerTitle
-            // 
+          
             this.lblServerTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblServerTitle.Font = new System.Drawing.Font("Segoe UI Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblServerTitle.ForeColor = System.Drawing.Color.White;
@@ -253,9 +227,7 @@
             this.lblServerTitle.Text = "File Transfer Server";
             this.lblServerTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblServerTitle.Click += new System.EventHandler(this.lblServerTitle_Click);
-            // 
-            // panel1
-            // 
+            
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.White;
@@ -266,9 +238,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 280);
             this.panel1.TabIndex = 13;
-            // 
-            // lblConnectedClients
-            // 
+            
             this.lblConnectedClients.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblConnectedClients.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblConnectedClients.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
@@ -279,9 +249,7 @@
             this.lblConnectedClients.TabIndex = 3;
             this.lblConnectedClients.Text = "CONNECTED CLIENTS";
             this.lblConnectedClients.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel2
-            // 
+            
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BackColor = System.Drawing.Color.White;
@@ -292,9 +260,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(420, 300);
             this.panel2.TabIndex = 14;
-            // 
-            // lblActivityLog
-            // 
+           
             this.lblActivityLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblActivityLog.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblActivityLog.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
@@ -305,9 +271,7 @@
             this.lblActivityLog.TabIndex = 7;
             this.lblActivityLog.Text = "ACTIVITY LOG";
             this.lblActivityLog.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel3
-            // 
+            
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.White;
@@ -324,9 +288,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(760, 270);
             this.panel3.TabIndex = 15;
-            // 
-            // headerPanel
-            // 
+            
             this.headerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.headerPanel.Controls.Add(this.lblServerIcon);
             this.headerPanel.Controls.Add(this.lblServerTitle);
@@ -335,9 +297,7 @@
             this.headerPanel.Name = "headerPanel";
             this.headerPanel.Size = new System.Drawing.Size(800, 70);
             this.headerPanel.TabIndex = 16;
-            // 
-            // lblServerIcon
-            // 
+            
             this.lblServerIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblServerIcon.Font = new System.Drawing.Font("Segoe MDL2 Assets", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblServerIcon.ForeColor = System.Drawing.Color.White;
@@ -347,9 +307,7 @@
             this.lblServerIcon.TabIndex = 13;
             this.lblServerIcon.Text = "";
             this.lblServerIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // footerPanel
-            // 
+           
             this.footerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.footerPanel.Controls.Add(this.lblVersion);
             this.footerPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -357,9 +315,7 @@
             this.footerPanel.Name = "footerPanel";
             this.footerPanel.Size = new System.Drawing.Size(800, 30);
             this.footerPanel.TabIndex = 17;
-            // 
-            // lblVersion
-            // 
+            
             this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
@@ -369,9 +325,7 @@
             this.lblVersion.TabIndex = 0;
             this.lblVersion.Text = "v1.0.0 • TCP File Transfer Server";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // ServerForm
-            // 
+           
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(800, 710);
             this.Controls.Add(this.panel1);

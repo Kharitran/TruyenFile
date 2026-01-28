@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -19,7 +19,7 @@ namespace Server.Core
         private Authentication auth;
         private ServerForm serverForm;
         private bool isAuthenticated = false;
-        private const long MAX_FILE_SIZE = 2L * 1024 * 1024 * 1024; // 2GB - THÊM GIỚI HẠN
+        private const long MAX_FILE_SIZE = 2L * 1024 * 1024 * 1024; 
 
         public string Username { get; private set; }
         public string IPAddress { get; private set; }
@@ -34,11 +34,9 @@ namespace Server.Core
             this.serverForm = serverForm;
             this.IPAddress = ((System.Net.IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
 
-            // SỬA: Đặt timeout hợp lý thay vì 0
-            this.client.ReceiveTimeout = 300000; // 5 phút cho file lớn
+            this.client.ReceiveTimeout = 300000; 
             this.client.SendTimeout = 300000;
 
-            // Tăng buffer size cho file lớn
             this.client.SendBufferSize = 65536;
             this.client.ReceiveBufferSize = 65536;
 
@@ -53,7 +51,6 @@ namespace Server.Core
                 {
                     try
                     {
-                        // KIỂM TRA STREAM CÓ DỮ LIỆU KHÔNG
                         if (!stream.DataAvailable)
                         {
                             Thread.Sleep(100);
@@ -138,7 +135,6 @@ namespace Server.Core
                 string username = FileTransferProtocol.ReceiveString(stream);
                 string password = FileTransferProtocol.ReceiveString(stream);
 
-                // VALIDATION
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Username and password required");
@@ -179,7 +175,6 @@ namespace Server.Core
                 string username = FileTransferProtocol.ReceiveString(stream);
                 string password = FileTransferProtocol.ReceiveString(stream);
 
-                // VALIDATION
                 if (string.IsNullOrEmpty(username) || username.Length < 3)
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Username must be at least 3 characters");
@@ -217,8 +212,7 @@ namespace Server.Core
 
             try
             {
-                // NHẬN TÊN FILE
-                // 1. Nhận tên file gốc
+               
                 string originalFileName = FileTransferProtocol.ReceiveString(stream);
                 if (string.IsNullOrEmpty(originalFileName))
                 {
@@ -226,11 +220,9 @@ namespace Server.Core
                     return;
                 }
 
-                // 2. Tạo tên file an toàn (Hàm này giờ đã xử lý hết ký tự lạ)
                 string safeFileName = GetSafeFileName(originalFileName);
                 filePath = Path.Combine(storagePath, safeFileName);
 
-                // KIỂM TRA TÊN FILE
                 if (string.IsNullOrEmpty(originalFileName) || originalFileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Invalid file name");
@@ -238,14 +230,10 @@ namespace Server.Core
                 }
 
 
-
-
                 serverForm.LogMessage($"📤 Receiving file: {safeFileName} from {Username}");
 
-                // THÊM: GỬI READY SIGNAL CHO CLIENT
                 FileTransferProtocol.SendString(stream, "READY_TO_RECEIVE");
 
-                // THÊM: KIỂM TRA DUNG LƯỢNG ĐĨA TRƯỚC
                 DriveInfo drive = new DriveInfo(Path.GetPathRoot(filePath));
                 if (drive.AvailableFreeSpace < MAX_FILE_SIZE)
                 {
@@ -254,7 +242,6 @@ namespace Server.Core
                     return;
                 }
 
-                // NHẬN FILE VỚI PROGRESS CALLBACK
                 FileTransferProtocol.ReceiveFile(stream, filePath, progress =>
                 {
                     if (progress % 25 == 0 || progress == 100)
@@ -262,14 +249,12 @@ namespace Server.Core
                         serverForm.LogMessage($"📊 {safeFileName}: {progress}% complete");
                     }
 
-                    // KIỂM TRA KẾT NỐI VẪN TỐT
                     if (!client.Connected)
                     {
                         throw new IOException("Connection lost during file transfer");
                     }
                 });
 
-                // KIỂM TRA FILE SAU KHI NHẬN
                 FileInfo fileInfo = new FileInfo(filePath);
                 if (fileInfo.Length == 0)
                 {
@@ -285,7 +270,6 @@ namespace Server.Core
             {
                 serverForm.LogMessage($"❌ File receive error: {ex.Message}");
 
-                // XÓA FILE NẾU LỖI
                 if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
                 {
                     try
@@ -310,14 +294,12 @@ namespace Server.Core
             {
                 string fileName = FileTransferProtocol.ReceiveString(stream);
 
-                // KIỂM TRA TÊN FILE
                 if (string.IsNullOrEmpty(fileName))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:File name required");
                     return;
                 }
 
-                // NGĂN CHẶN PATH TRAVERSAL
                 if (fileName.Contains("..") || fileName.Contains("/") || fileName.Contains("\\"))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Invalid file name");
@@ -334,7 +316,6 @@ namespace Server.Core
                     return;
                 }
 
-                // KIỂM TRA FILE SIZE TRƯỚC KHI GỬI
                 FileInfo fileInfo = new FileInfo(filePath);
                 if (fileInfo.Length > MAX_FILE_SIZE)
                 {
@@ -354,7 +335,6 @@ namespace Server.Core
                         serverForm.LogMessage($"📤 {fileName}: {progress}% sent");
                     }
 
-                    // KIỂM TRA KẾT NỐI
                     if (!client.Connected)
                     {
                         throw new IOException("Connection lost during file transfer");
@@ -378,7 +358,6 @@ namespace Server.Core
         {
             try
             {
-                // KIỂM TRA THƯ MỤC TỒN TẠI
                 if (!Directory.Exists(storagePath))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Storage directory not found");
@@ -394,10 +373,8 @@ namespace Server.Core
                     {
                         FileInfo info = new FileInfo(file);
 
-                        // CHỈ GỬI FILE < MAX_FILE_SIZE
                         if (info.Length <= MAX_FILE_SIZE)
                         {
-                            // GỬI TÊN FILE GỐC (BỎ TIMESTAMP NẾU CÓ)
                             string displayName = GetOriginalFileName(info.Name);
                             sb.AppendLine($"{displayName}|{info.Length}|{info.LastWriteTime:yyyy-MM-dd HH:mm:ss}");
                         }
@@ -428,26 +405,21 @@ namespace Server.Core
         {
             if (string.IsNullOrWhiteSpace(fileName)) return "unnamed_file_" + DateTime.Now.Ticks;
 
-            // 1. Chỉ lấy phần tên file, loại bỏ hoàn toàn đường dẫn nếu client gửi kèm
             string nameOnly = Path.GetFileName(fileName);
 
-            // 2. Loại bỏ các ký tự không hợp lệ của hệ thống
             foreach (char c in Path.GetInvalidFileNameChars())
             {
                 nameOnly = nameOnly.Replace(c, '_');
             }
 
-            // 3. Xử lý các ký tự điều khiển và khoảng trắng dư thừa
             nameOnly = nameOnly.Trim().Replace(" ", "_");
 
-            // 4. Giới hạn độ dài và thêm Timestamp
             string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string nameWithoutExt = Path.GetFileNameWithoutExtension(nameOnly);
             string extension = Path.GetExtension(nameOnly);
 
             if (nameWithoutExt.Length > 50)
             {
-                // Sửa 'order: 0' thành '0' và 'length: 50' thành '50'
                 nameWithoutExt = nameWithoutExt.Substring(0, 50);
             }
 
@@ -456,11 +428,9 @@ namespace Server.Core
 
         private string GetOriginalFileName(string fileNameWithTimestamp)
         {
-            // TRẢ VỀ TÊN GỐC NẾU FILE CÓ TIMESTAMP
             string nameWithoutExt = Path.GetFileNameWithoutExtension(fileNameWithTimestamp);
             string extension = Path.GetExtension(fileNameWithTimestamp);
 
-            // KIỂM TRA CÓ DẠNG name_timestamp KHÔNG
             int lastUnderscore = nameWithoutExt.LastIndexOf('_');
             if (lastUnderscore > 0)
             {

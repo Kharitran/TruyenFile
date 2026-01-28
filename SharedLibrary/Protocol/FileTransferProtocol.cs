@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -56,6 +56,9 @@ namespace SharedLibrary.Protocol
                     progress?.Invoke((int)((totalSent * 100) / info.Length));
                 }
                 stream.Write(BitConverter.GetBytes(0), 0, 4); 
+
+                stream.Write(BitConverter.GetBytes(0), 0, 4); 
+
             }
         }
 

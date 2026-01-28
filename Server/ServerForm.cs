@@ -1,4 +1,4 @@
-﻿using Server.Core;
+using Server.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,13 +45,11 @@ namespace Server
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            // Lấy đường dẫn từ TextBox và chuyển nó thành đường dẫn tuyệt đối ngay lập tức
             string rawPath = txtStoragePath.Text;
             if (string.IsNullOrWhiteSpace(rawPath)) rawPath = "ServerStorage";
 
             string absolutePath = Path.GetFullPath(rawPath);
 
-            // Cập nhật lại TextBox để bạn thấy đường dẫn thật sự mà Server đang dùng
             txtStoragePath.Text = absolutePath;
 
             StartServer((int)numPort.Value, absolutePath);

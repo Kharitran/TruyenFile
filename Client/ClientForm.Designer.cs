@@ -131,9 +131,7 @@
             this.panelHeader.SuspendLayout();
             this.panelFooter.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabControl
-            // 
+            
             this.tabControl.Controls.Add(this.tabLogin);
             this.tabControl.Controls.Add(this.tabFileTransfer);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -142,9 +140,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(898, 612);
             this.tabControl.TabIndex = 0;
-            // 
-            // tabLogin
-            // 
+            
             this.tabLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.tabLogin.Controls.Add(this.panelMain);
             this.tabLogin.Location = new System.Drawing.Point(4, 29);
@@ -153,9 +149,7 @@
             this.tabLogin.Size = new System.Drawing.Size(890, 579);
             this.tabLogin.TabIndex = 0;
             this.tabLogin.Text = "Login/Register";
-            // 
-            // panelMain
-            // 
+             
             this.panelMain.BackColor = System.Drawing.Color.Transparent;
             this.panelMain.Controls.Add(this.grpRegister);
             this.panelMain.Controls.Add(this.grpLogin);
@@ -165,9 +159,7 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(850, 539);
             this.panelMain.TabIndex = 3;
-            // 
-            // grpRegister
-            // 
+           
             this.grpRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpRegister.BackColor = System.Drawing.Color.White;
@@ -187,9 +179,7 @@
             this.grpRegister.TabIndex = 2;
             this.grpRegister.TabStop = false;
             this.grpRegister.Text = "REGISTER NEW ACCOUNT";
-            // 
-            // lblRegStatus
-            // 
+           
             this.lblRegStatus.AutoSize = true;
             this.lblRegStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -198,9 +188,7 @@
             this.lblRegStatus.Size = new System.Drawing.Size(50, 20);
             this.lblRegStatus.TabIndex = 7;
             this.lblRegStatus.Text = "Ready";
-            // 
-            // btnRegister
-            // 
+            
             this.btnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
             this.btnRegister.FlatAppearance.BorderSize = 0;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -213,9 +201,7 @@
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-            // 
-            // txtConfirmPassword
-            // 
+             
             this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConfirmPassword.Location = new System.Drawing.Point(154, 104);
@@ -223,9 +209,7 @@
             this.txtConfirmPassword.PasswordChar = '●';
             this.txtConfirmPassword.Size = new System.Drawing.Size(250, 27);
             this.txtConfirmPassword.TabIndex = 5;
-            // 
-            // lblConfirmPassword
-            // 
+          
             this.lblConfirmPassword.AutoSize = true;
             this.lblConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConfirmPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -235,9 +219,7 @@
             this.lblConfirmPassword.TabIndex = 4;
             this.lblConfirmPassword.Text = "Confirm Password:";
             this.lblConfirmPassword.Click += new System.EventHandler(this.lblConfirmPassword_Click);
-            // 
-            // txtRegPassword
-            // 
+           
             this.txtRegPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRegPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegPassword.Location = new System.Drawing.Point(104, 71);
@@ -245,9 +227,7 @@
             this.txtRegPassword.PasswordChar = '●';
             this.txtRegPassword.Size = new System.Drawing.Size(250, 27);
             this.txtRegPassword.TabIndex = 3;
-            // 
-            // lblRegPassword
-            // 
+            
             this.lblRegPassword.AutoSize = true;
             this.lblRegPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -256,18 +236,14 @@
             this.lblRegPassword.Size = new System.Drawing.Size(73, 20);
             this.lblRegPassword.TabIndex = 2;
             this.lblRegPassword.Text = "Password:";
-            // 
-            // txtRegUsername
-            // 
+            
             this.txtRegUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRegUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegUsername.Location = new System.Drawing.Point(104, 29);
             this.txtRegUsername.Name = "txtRegUsername";
             this.txtRegUsername.Size = new System.Drawing.Size(250, 27);
             this.txtRegUsername.TabIndex = 1;
-            // 
-            // lblRegUsername
-            // 
+            
             this.lblRegUsername.AutoSize = true;
             this.lblRegUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -276,9 +252,7 @@
             this.lblRegUsername.Size = new System.Drawing.Size(78, 20);
             this.lblRegUsername.TabIndex = 0;
             this.lblRegUsername.Text = "Username:";
-            // 
-            // grpLogin
-            // 
+            
             this.grpLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpLogin.BackColor = System.Drawing.Color.White;
@@ -296,9 +270,7 @@
             this.grpLogin.TabIndex = 1;
             this.grpLogin.TabStop = false;
             this.grpLogin.Text = "LOGIN";
-            // 
-            // lblLoginStatus
-            // 
+            
             this.lblLoginStatus.AutoSize = true;
             this.lblLoginStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoginStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -307,9 +279,7 @@
             this.lblLoginStatus.Size = new System.Drawing.Size(50, 20);
             this.lblLoginStatus.TabIndex = 5;
             this.lblLoginStatus.Text = "Ready";
-            // 
-            // btnLogin
-            // 
+            
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -322,9 +292,7 @@
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // txtPassword
-            // 
+          
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(104, 71);
@@ -332,9 +300,7 @@
             this.txtPassword.PasswordChar = '●';
             this.txtPassword.Size = new System.Drawing.Size(250, 27);
             this.txtPassword.TabIndex = 3;
-            // 
-            // lblPassword
-            // 
+           
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -343,18 +309,14 @@
             this.lblPassword.Size = new System.Drawing.Size(73, 20);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Password:";
-            // 
-            // txtUsername
-            // 
+            
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(104, 31);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(250, 27);
             this.txtUsername.TabIndex = 1;
-            // 
-            // lblUsername
-            // 
+            
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -363,9 +325,7 @@
             this.lblUsername.Size = new System.Drawing.Size(78, 20);
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Username:";
-            // 
-            // grpConnection
-            // 
+            
             this.grpConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpConnection.BackColor = System.Drawing.Color.White;
@@ -384,9 +344,7 @@
             this.grpConnection.TabIndex = 0;
             this.grpConnection.TabStop = false;
             this.grpConnection.Text = "SERVER CONNECTION";
-            // 
-            // btnDisconnect
-            // 
+           
             this.btnDisconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDisconnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.btnDisconnect.Enabled = false;
@@ -401,9 +359,7 @@
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = false;
             this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
-            // 
-            // lblConnectionStatus
-            // 
+             
             this.lblConnectionStatus.AutoSize = true;
             this.lblConnectionStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConnectionStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -412,9 +368,7 @@
             this.lblConnectionStatus.Size = new System.Drawing.Size(154, 20);
             this.lblConnectionStatus.TabIndex = 5;
             this.lblConnectionStatus.Text = "Status: Not connected";
-            // 
-            // btnConnect
-            // 
+            
             this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnConnect.FlatAppearance.BorderSize = 0;
@@ -428,9 +382,7 @@
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // numPort
-            // 
+          
             this.numPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -454,9 +406,7 @@
             0,
             0});
             this.numPort.ValueChanged += new System.EventHandler(this.numPort_ValueChanged);
-            // 
-            // lblPort
-            // 
+          
             this.lblPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPort.AutoSize = true;
             this.lblPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -466,9 +416,7 @@
             this.lblPort.Size = new System.Drawing.Size(38, 20);
             this.lblPort.TabIndex = 2;
             this.lblPort.Text = "Port:";
-            // 
-            // txtServerIP
-            // 
+           
             this.txtServerIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -478,9 +426,7 @@
             this.txtServerIP.Size = new System.Drawing.Size(540, 27);
             this.txtServerIP.TabIndex = 1;
             this.txtServerIP.Text = "127.0.0.1";
-            // 
-            // lblServerIP
-            // 
+           
             this.lblServerIP.AutoSize = true;
             this.lblServerIP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblServerIP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -489,9 +435,7 @@
             this.lblServerIP.Size = new System.Drawing.Size(69, 20);
             this.lblServerIP.TabIndex = 0;
             this.lblServerIP.Text = "Server IP:";
-            // 
-            // tabFileTransfer
-            // 
+            
             this.tabFileTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.tabFileTransfer.Controls.Add(this.panelContainer);
             this.tabFileTransfer.Location = new System.Drawing.Point(4, 29);
@@ -501,9 +445,7 @@
             this.tabFileTransfer.TabIndex = 1;
             this.tabFileTransfer.Text = "File Transfer";
             this.tabFileTransfer.Click += new System.EventHandler(this.tabFileTransfer_Click);
-            // 
-            // panelContainer
-            // 
+            
             this.panelContainer.BackColor = System.Drawing.Color.Transparent;
             this.panelContainer.Controls.Add(this.grpDownload);
             this.panelContainer.Controls.Add(this.grpUpload);
@@ -512,9 +454,7 @@
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(884, 573);
             this.panelContainer.TabIndex = 3;
-            // 
-            // grpDownload
-            // 
+            
             this.grpDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDownload.BackColor = System.Drawing.Color.Transparent;
@@ -529,9 +469,7 @@
             this.grpDownload.TabStop = false;
             this.grpDownload.Text = "DOWNLOAD FILES FROM SERVER";
             this.grpDownload.Enter += new System.EventHandler(this.grpDownload_Enter);
-            // 
-            // panelDownload
-            // 
+            
             this.panelDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDownload.BackColor = System.Drawing.Color.White;
@@ -545,10 +483,7 @@
             this.panelDownload.Name = "panelDownload";
             this.panelDownload.Size = new System.Drawing.Size(850, 214);
             this.panelDownload.TabIndex = 3;
-            this.panelDownload.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDownload_Paint);
-            // 
-            // lblDownloadPath
-            // 
+             
             this.lblDownloadPath.AutoSize = true;
             this.lblDownloadPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDownloadPath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -557,9 +492,7 @@
             this.lblDownloadPath.Size = new System.Drawing.Size(156, 20);
             this.lblDownloadPath.TabIndex = 6;
             this.lblDownloadPath.Text = "Save to: (not selected)";
-            // 
-            // btnSaveAs
-            // 
+            
             this.btnSaveAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.btnSaveAs.FlatAppearance.BorderSize = 0;
             this.btnSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -572,9 +505,7 @@
             this.btnSaveAs.Text = "Choose Location";
             this.btnSaveAs.UseVisualStyleBackColor = false;
             this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
-            // 
-            // lblFileInfo
-            // 
+            
             this.lblFileInfo.AutoSize = true;
             this.lblFileInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFileInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -583,16 +514,12 @@
             this.lblFileInfo.Size = new System.Drawing.Size(106, 20);
             this.lblFileInfo.TabIndex = 4;
             this.lblFileInfo.Text = "No file selected";
-            // 
-            // progressDownload
-            // 
+            
             this.progressDownload.Location = new System.Drawing.Point(20, 154);
             this.progressDownload.Name = "progressDownload";
             this.progressDownload.Size = new System.Drawing.Size(810, 25);
             this.progressDownload.TabIndex = 3;
-            // 
-            // btnDownload
-            // 
+            
             this.btnDownload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnDownload.FlatAppearance.BorderSize = 0;
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -605,9 +532,7 @@
             this.btnDownload.Text = "Download";
             this.btnDownload.UseVisualStyleBackColor = false;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // btnRefresh
-            // 
+            
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnRefresh.FlatAppearance.BorderSize = 0;
@@ -621,9 +546,7 @@
             this.btnRefresh.Text = "Refresh List";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // lstFiles
-            // 
+           
             this.lstFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFiles.BackColor = System.Drawing.Color.White;
@@ -637,10 +560,7 @@
             this.lstFiles.Size = new System.Drawing.Size(808, 92);
             this.lstFiles.TabIndex = 0;
             this.lstFiles.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
-            // 
-            // grpUpload
-            // 
-            this.grpUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        this.grpUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpUpload.BackColor = System.Drawing.Color.Transparent;
             this.grpUpload.Controls.Add(this.panelUpload);
@@ -652,9 +572,7 @@
             this.grpUpload.TabIndex = 0;
             this.grpUpload.TabStop = false;
             this.grpUpload.Text = "UPLOAD FILE TO SERVER";
-            // 
-            // panelUpload
-            // 
+           
             this.panelUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelUpload.BackColor = System.Drawing.Color.White;
@@ -667,9 +585,7 @@
             this.panelUpload.Name = "panelUpload";
             this.panelUpload.Size = new System.Drawing.Size(850, 200);
             this.panelUpload.TabIndex = 1;
-            // 
-            // lblUploadStatus
-            // 
+            
             this.lblUploadStatus.AutoSize = true;
             this.lblUploadStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUploadStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
@@ -678,9 +594,7 @@
             this.lblUploadStatus.Size = new System.Drawing.Size(48, 20);
             this.lblUploadStatus.TabIndex = 4;
             this.lblUploadStatus.Text = "Ready";
-            // 
-            // btnUpload
-            // 
+            
             this.btnUpload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnUpload.Enabled = false;
             this.btnUpload.FlatAppearance.BorderSize = 0;
@@ -694,16 +608,12 @@
             this.btnUpload.Text = "Upload File";
             this.btnUpload.UseVisualStyleBackColor = false;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // progressUpload
-            // 
+            
             this.progressUpload.Location = new System.Drawing.Point(20, 110);
             this.progressUpload.Name = "progressUpload";
             this.progressUpload.Size = new System.Drawing.Size(810, 25);
             this.progressUpload.TabIndex = 2;
-            // 
-            // lblSelectedFile
-            // 
+            
             this.lblSelectedFile.AutoSize = true;
             this.lblSelectedFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSelectedFile.Location = new System.Drawing.Point(170, 60);
@@ -711,9 +621,7 @@
             this.lblSelectedFile.Size = new System.Drawing.Size(113, 20);
             this.lblSelectedFile.TabIndex = 1;
             this.lblSelectedFile.Text = "No file selected";
-            // 
-            // btnBrowse
-            // 
+          
             this.btnBrowse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -726,9 +634,7 @@
             this.btnBrowse.Text = "Browse File...";
             this.btnBrowse.UseVisualStyleBackColor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
-            // 
-            // panelHeader
-            // 
+            
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.panelHeader.Controls.Add(this.lblClientIcon);
             this.panelHeader.Controls.Add(this.lblClientTitle);
@@ -737,9 +643,7 @@
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(898, 80);
             this.panelHeader.TabIndex = 1;
-            // 
-            // lblClientIcon
-            // 
+            
             this.lblClientIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblClientIcon.Font = new System.Drawing.Font("Segoe MDL2 Assets", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClientIcon.ForeColor = System.Drawing.Color.White;
@@ -749,9 +653,7 @@
             this.lblClientIcon.TabIndex = 1;
             this.lblClientIcon.Text = "";
             this.lblClientIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblClientTitle
-            // 
+            
             this.lblClientTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblClientTitle.Font = new System.Drawing.Font("Segoe UI Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClientTitle.ForeColor = System.Drawing.Color.White;
@@ -761,9 +663,7 @@
             this.lblClientTitle.TabIndex = 0;
             this.lblClientTitle.Text = "File Transfer Client";
             this.lblClientTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panelFooter
-            // 
+           
             this.panelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.panelFooter.Controls.Add(this.lblVersion);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -771,9 +671,7 @@
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Size = new System.Drawing.Size(898, 30);
             this.panelFooter.TabIndex = 2;
-            // 
-            // lblVersion
-            // 
+            
             this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
@@ -783,9 +681,7 @@
             this.lblVersion.TabIndex = 0;
             this.lblVersion.Text = "v1.0.0 • TCP File Transfer Client";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // ClientForm
-            // 
+            
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(898, 722);
             this.Controls.Add(this.tabControl);
