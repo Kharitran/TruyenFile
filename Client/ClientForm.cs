@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
@@ -42,7 +42,7 @@ namespace Client
             lblRegStatus.ForeColor = Color.Red;
 
             numPort.Value = 8888;
-            txtServerIP.Text = "";
+            txtServerIP.Text = "127.0.0.1";
         }
 
         private void UpdateConnectionStatus(bool connected, string message = "")
@@ -324,7 +324,7 @@ namespace Client
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    selectedFile = dialog.FileName;
+                    selectedFile = Path.GetFullPath(dialog.FileName);
                     FileInfo fileInfo = new FileInfo(selectedFile);
                     lblSelectedFile.Text = $"{fileInfo.Name} ({FormatFileSize(fileInfo.Length)})";
                     btnUpload.Enabled = true;

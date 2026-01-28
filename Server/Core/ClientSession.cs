@@ -34,9 +34,11 @@ namespace Server.Core
             this.serverForm = serverForm;
             this.IPAddress = ((System.Net.IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
 
-            this.client.ReceiveTimeout = 300000; 
+            // SỬA: Đặt timeout hợp lý thay vì 0
+            this.client.ReceiveTimeout = 300000; // 5 phút cho file lớn
             this.client.SendTimeout = 300000;
 
+            // Tăng buffer size cho file lớn
             this.client.SendBufferSize = 65536;
             this.client.ReceiveBufferSize = 65536;
 
@@ -51,6 +53,7 @@ namespace Server.Core
                 {
                     try
                     {
+                        // KIỂM TRA STREAM CÓ DỮ LIỆU KHÔNG
                         if (!stream.DataAvailable)
                         {
                             Thread.Sleep(100);
@@ -135,6 +138,7 @@ namespace Server.Core
                 string username = FileTransferProtocol.ReceiveString(stream);
                 string password = FileTransferProtocol.ReceiveString(stream);
 
+                // VALIDATION
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
                     FileTransferProtocol.SendString(stream, "ERROR:Username and password required");
@@ -214,7 +218,17 @@ namespace Server.Core
             try
             {
                 // NHẬN TÊN FILE
+                // 1. Nhận tên file gốc
                 string originalFileName = FileTransferProtocol.ReceiveString(stream);
+                if (string.IsNullOrEmpty(originalFileName))
+                {
+                    FileTransferProtocol.SendString(stream, "ERROR:Empty file name");
+                    return;
+                }
+
+                // 2. Tạo tên file an toàn (Hàm này giờ đã xử lý hết ký tự lạ)
+                string safeFileName = GetSafeFileName(originalFileName);
+                filePath = Path.Combine(storagePath, safeFileName);
 
                 // KIỂM TRA TÊN FILE
                 if (string.IsNullOrEmpty(originalFileName) || originalFileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
@@ -223,9 +237,8 @@ namespace Server.Core
                     return;
                 }
 
-                // TẠO TÊN FILE AN TOÀN
-                string safeFileName = GetSafeFileName(originalFileName);
-                filePath = Path.Combine(storagePath, safeFileName);
+
+
 
                 serverForm.LogMessage($"📤 Receiving file: {safeFileName} from {Username}");
 
@@ -413,21 +426,28 @@ namespace Server.Core
 
         private string GetSafeFileName(string fileName)
         {
-            // XÓA CÁC KÝ TỰ KHÔNG HỢP LỆ
-            string invalidChars = new string(Path.GetInvalidFileNameChars());
-            foreach (char c in invalidChars)
+            if (string.IsNullOrWhiteSpace(fileName)) return "unnamed_file_" + DateTime.Now.Ticks;
+
+            // 1. Chỉ lấy phần tên file, loại bỏ hoàn toàn đường dẫn nếu client gửi kèm
+            string nameOnly = Path.GetFileName(fileName);
+
+            // 2. Loại bỏ các ký tự không hợp lệ của hệ thống
+            foreach (char c in Path.GetInvalidFileNameChars())
             {
-                fileName = fileName.Replace(c.ToString(), "_");
+                nameOnly = nameOnly.Replace(c, '_');
             }
 
-            // THÊM TIMESTAMP ĐỂ TRÁNH TRÙNG
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string nameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
-            string extension = Path.GetExtension(fileName);
+            // 3. Xử lý các ký tự điều khiển và khoảng trắng dư thừa
+            nameOnly = nameOnly.Trim().Replace(" ", "_");
 
-            // GIỚI HẠN ĐỘ DÀI TÊN FILE
+            // 4. Giới hạn độ dài và thêm Timestamp
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string nameWithoutExt = Path.GetFileNameWithoutExtension(nameOnly);
+            string extension = Path.GetExtension(nameOnly);
+
             if (nameWithoutExt.Length > 50)
             {
+                // Sửa 'order: 0' thành '0' và 'length: 50' thành '50'
                 nameWithoutExt = nameWithoutExt.Substring(0, 50);
             }
 

@@ -168,7 +168,7 @@
             // 
             // grpRegister
             // 
-            this.grpRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpRegister.BackColor = System.Drawing.Color.White;
             this.grpRegister.Controls.Add(this.lblRegStatus);
@@ -279,7 +279,7 @@
             // 
             // grpLogin
             // 
-            this.grpLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpLogin.BackColor = System.Drawing.Color.White;
             this.grpLogin.Controls.Add(this.lblLoginStatus);
@@ -366,7 +366,7 @@
             // 
             // grpConnection
             // 
-            this.grpConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpConnection.BackColor = System.Drawing.Color.White;
             this.grpConnection.Controls.Add(this.btnDisconnect);
@@ -469,7 +469,7 @@
             // 
             // txtServerIP
             // 
-            this.txtServerIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtServerIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtServerIP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -477,6 +477,7 @@
             this.txtServerIP.Name = "txtServerIP";
             this.txtServerIP.Size = new System.Drawing.Size(540, 27);
             this.txtServerIP.TabIndex = 1;
+            this.txtServerIP.Text = "127.0.0.1";
             // 
             // lblServerIP
             // 
@@ -493,10 +494,10 @@
             // 
             this.tabFileTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.tabFileTransfer.Controls.Add(this.panelContainer);
-            this.tabFileTransfer.Location = new System.Drawing.Point(4, 25);
+            this.tabFileTransfer.Location = new System.Drawing.Point(4, 29);
             this.tabFileTransfer.Name = "tabFileTransfer";
             this.tabFileTransfer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFileTransfer.Size = new System.Drawing.Size(890, 583);
+            this.tabFileTransfer.Size = new System.Drawing.Size(890, 579);
             this.tabFileTransfer.TabIndex = 1;
             this.tabFileTransfer.Text = "File Transfer";
             this.tabFileTransfer.Click += new System.EventHandler(this.tabFileTransfer_Click);
@@ -509,12 +510,12 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(3, 3);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(884, 577);
+            this.panelContainer.Size = new System.Drawing.Size(884, 573);
             this.panelContainer.TabIndex = 3;
             // 
             // grpDownload
             // 
-            this.grpDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDownload.BackColor = System.Drawing.Color.Transparent;
             this.grpDownload.Controls.Add(this.panelDownload);
@@ -531,7 +532,7 @@
             // 
             // panelDownload
             // 
-            this.panelDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDownload.BackColor = System.Drawing.Color.White;
             this.panelDownload.Controls.Add(this.lblDownloadPath);
@@ -623,7 +624,7 @@
             // 
             // lstFiles
             // 
-            this.lstFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lstFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFiles.BackColor = System.Drawing.Color.White;
             this.lstFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -639,7 +640,7 @@
             // 
             // grpUpload
             // 
-            this.grpUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpUpload.BackColor = System.Drawing.Color.Transparent;
             this.grpUpload.Controls.Add(this.panelUpload);
@@ -654,7 +655,7 @@
             // 
             // panelUpload
             // 
-            this.panelUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelUpload.BackColor = System.Drawing.Color.White;
             this.panelUpload.Controls.Add(this.lblUploadStatus);
